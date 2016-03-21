@@ -1,0 +1,33 @@
+<?php 
+
+require 'post.php';
+if(!function_exists('viewMsg'))
+{
+   require 'db.php';
+}
+
+if(isset($msgID))
+{
+    $pst = viewMsg($msgID);
+} else {
+    $pst = viewMsg(-1);
+}
+
+if($pst == FALSE)
+{
+    echo 'No more messages.';
+    return;
+}
+
+?>
+
+<h4><span class="label label-default"><?php echo $pst->person; ?></span>
+  <span class="label label-default pull-right"><?php echo $pst->date; ?></span></h4>
+<div class="well">
+    <?php echo $pst->msg; ?>
+</div>
+
+  <div class="btn-group btn-group-lg" role="group" aria-label="Other posts">
+      <button id="prvBtn" type="button" class="btn btn-primary" value="<?php echo $pst->id -1; ?>"><< Prev </button>
+      <button id="nxtBtn" type="button" class="btn btn-primary" value="<?php echo $pst->id +1; ?>">Next >></button>
+  </div>
